@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Python Flowchart Generator | PyFlow</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>PyFlow - Python Flowchart Generator</h1>
+      <p>Paste Python code or upload a <code>.py</code> file to visualize flowcharts instantly!</p>
+    </header>
+
+    <section class="form-section">
+      <form method="POST" enctype="multipart/form-data" id="codeForm">
+        <label for="codeInput">Paste your Python code:</label>
+        <textarea id="codeInput" name="code" placeholder="Enter Python code here...">{{ code|default("") }}</textarea>
+
+        <div class="file-upload">
+          <label for="fileInput">Or upload a Python file:</label>
+          <input type="file" id="fileInput" name="file" accept=".py" />
+        </div>
+
+        <button type="submit">Generate Flowchart</button>
+      </form>
+
+      {% if error %}
+      <div class="error-message">{{ error }}</div>
+      {% endif %}
+    </section>
+
+    {% if svg_data %}
+    <section class="flowchart-section">
+      <h2>Generated Flowchart</h2>
+      <div class="flowchart-container">{{ svg_data|safe }}</div>
+    </section>
+    {% endif %}
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+
